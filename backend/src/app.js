@@ -21,6 +21,10 @@ app.use(
   })
 );
 
+app.get("/", (req, res) => {
+   res.send("Backend API running 🚀");
+});
+
 import authRoute from "./routes/authRoute.js";
 import messageRoute from "./routes/messageRoute.js";
 
