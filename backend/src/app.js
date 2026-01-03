@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import { app, server } from "./lib/socket.js";
 
-import path from "path";
+//import path from "path";
 
 dotenv.config();
 
@@ -27,17 +27,17 @@ import messageRoute from "./routes/messageRoute.js";
 app.use("/api/auth", authRoute);
 app.use("/api/message", messageRoute);
 
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
-})
-}
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+// })
+// }
 
 const port = process.env.PORT || 5000;
-const __dirname = path.resolve();
+//const __dirname = path.resolve();
 
 mongoose
   .connect(process.env.MONGODB_URI)
