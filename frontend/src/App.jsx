@@ -1,3 +1,46 @@
+// import { Navigate, Route, Routes } from "react-router-dom";
+
+// import Navbar from "./components/Navbar";
+// import HomePage from "./Pages/HomePage";
+// import SignUpPage from "./Pages/SignUpPage";
+// import LoginPage from "./Pages/LoginPage";
+// import ProfilePage from "./Pages/ProfilePage";
+
+// import { Toaster } from "react-hot-toast";
+// import { authStore } from "./store/authStore";
+// import { useEffect } from "react";
+
+// function App() {
+//   const { loggedUser, login } = authStore();
+
+//   return (
+//     <div className="min-h-screen bg-gray-800 text-white">
+//       <Navbar />
+//       <Routes>
+//         <Route
+//           path="/"
+//           element={loggedUser ? <HomePage /> : <Navigate to="/login" />}
+//         />
+//         <Route
+//           path="/signup"
+//           element={!loggedUser ? <SignUpPage /> : <Navigate to="/" />}
+//         />
+//         <Route
+//           path="/login"
+//           element={!loggedUser ? <LoginPage /> : <Navigate to="/" />}
+//         />
+//         <Route
+//           path="/profile"
+//           element={loggedUser ? <ProfilePage /> : <Navigate to="/login" />}
+//         />
+//       </Routes>
+//       <Toaster />
+//     </div>
+//   );
+// }
+// export default App;
+
+
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
@@ -8,34 +51,51 @@ import ProfilePage from "./Pages/ProfilePage";
 
 import { Toaster } from "react-hot-toast";
 import { authStore } from "./store/authStore";
-import { useEffect } from "react";
 
 function App() {
-  const { loggedUser, login } = authStore();
+  const { loggedUser } = authStore();
 
   return (
     <div className="min-h-screen bg-gray-800 text-white">
       <Navbar />
+
       <Routes>
+        {/* Home */}
         <Route
           path="/"
-          element={loggedUser ? <HomePage /> : <Navigate to="/login" />}
+          element={loggedUser ? <HomePage /> : <Navigate to="/login" replace />}
         />
+
+        {/* Signup */}
         <Route
           path="/signup"
-          element={!loggedUser ? <SignUpPage /> : <Navigate to="/" />}
+          element={!loggedUser ? <SignUpPage /> : <Navigate to="/" replace />}
         />
+
+        {/* Login */}
         <Route
           path="/login"
-          element={!loggedUser ? <LoginPage /> : <Navigate to="/" />}
+          element={!loggedUser ? <LoginPage /> : <Navigate to="/" replace />}
         />
+
+        {/* Profile */}
         <Route
           path="/profile"
-          element={loggedUser ? <ProfilePage /> : <Navigate to="/login" />}
+          element={
+            loggedUser ? <ProfilePage /> : <Navigate to="/login" replace />
+          }
+        />
+
+        {/* ✅ CATCH-ALL (THIS FIXES /index.html ERROR) */}
+        <Route
+          path="*"
+          element={<Navigate to={loggedUser ? "/" : "/login"} replace />}
         />
       </Routes>
+
       <Toaster />
     </div>
   );
 }
+
 export default App;
